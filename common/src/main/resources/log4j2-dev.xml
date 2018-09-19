@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
+        </Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="FileAppender" fileName="logs/test.log"
+                     filePattern="logs/log4j2-demo-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <!--<SMTP name="MailAppender"-->
+              <!--subject="Log4j2 Demo [PROD]"-->
+              <!--to="youremail@example.com"-->
+              <!--from="log4j2-demo-alerts@example.com"-->
+              <!--smtpHost="127.0.0.1"-->
+              <!--smtpPort="25"-->
+              <!--bufferSize="1">-->
+            <!--<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <!--<PatternLayout>-->
+                <!--<Pattern>${LOG_PATTERN}</Pattern>-->
+            <!--</PatternLayout>-->
+        <!--</SMTP>-->
+
+    </Appenders>
+    <Loggers>
+
+        <!--<Logger name="org.springframework.boot" level="debug" additivity="false">-->
+            <!--<AppenderRef ref="ConsoleAppender" />-->
+        <!--</Logger>-->
+
+        <!--<Logger name="org.springframework.core" level="debug" additivity="false">-->
+            <!--<AppenderRef ref="ConsoleAppender" />-->
+        <!--</Logger>-->
+
+        <Root level="info">
+            <AppenderRef ref="FileAppender" />
+            <AppenderRef ref="ConsoleAppender" />
+            <!--<AppenderRef ref="MailAppender" />-->
+        </Root>
+
+    </Loggers>
+</Configuration>
